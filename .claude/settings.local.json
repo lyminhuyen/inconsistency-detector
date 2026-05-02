@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ollama run *)",
+      "Bash(python extract_numbers.py)",
+      "Bash(python3 extract_numbers.py)",
+      "Bash(python3 *)"
+    ]
+  }
+}

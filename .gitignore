@@ -2,7 +2,6 @@
 temp/
 ALL_OPENAI/
 nctq/
-CLAUDE.md
 
 # Python
 __pycache__/
@@ -11,13 +10,3 @@ __pycache__/
 .venv/
 venv/
 .env
-
-# IDE
-.idea/
-.vscode/
-*.swp
-
-# OS
-.DS_Store
-Thumbs.db
-.claude/

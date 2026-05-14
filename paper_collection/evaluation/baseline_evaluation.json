@@ -1,0 +1,112 @@
+{
+  "summary": {
+    "total_labels": 10,
+    "total_predictions": 10,
+    "missing_predictions": 0,
+    "detection_accuracy": 1.0,
+    "error_type_accuracy": 1.0,
+    "modified_value_accuracy": 1.0
+  },
+  "rows": [
+    {
+      "error_id": "2605.02402v1_0008_err",
+      "detected_correct": true,
+      "type_correct": true,
+      "modified_value_correct": true,
+      "gold_error_type": "metric_value_mismatch",
+      "predicted_error_type": "metric_value_mismatch",
+      "gold_modified_value": "73",
+      "predicted_modified_value": "73"
+    },
+    {
+      "error_id": "2605.02402v1_0012_err",
+      "detected_correct": true,
+      "type_correct": true,
+      "modified_value_correct": true,
+      "gold_error_type": "sample_or_protocol_count_mismatch",
+      "predicted_error_type": "sample_or_protocol_count_mismatch",
+      "gold_modified_value": "6",
+      "predicted_modified_value": "6"
+    },
+    {
+      "error_id": "2605.02402v1_0001_err",
+      "detected_correct": true,
+      "type_correct": true,
+      "modified_value_correct": true,
+      "gold_error_type": "metric_value_mismatch",
+      "predicted_error_type": "metric_value_mismatch",
+      "gold_modified_value": "0.7676",
+      "predicted_modified_value": "0.7676"
+    },
+    {
+      "error_id": "2605.02402v1_0007_err",
+      "detected_correct": true,
+      "type_correct": true,
+      "modified_value_correct": true,
+      "gold_error_type": "metric_value_mismatch",
+      "predicted_error_type": "metric_value_mismatch",
+      "gold_modified_value": "0,7595",
+      "predicted_modified_value": "0,7595"
+    },
+    {
+      "error_id": "2605.02402v1_0004_err",
+      "detected_correct": true,
+      "type_correct": true,
+      "modified_value_correct": true,
+      "gold_error_type": "metric_value_mismatch",
+      "predicted_error_type": "metric_value_mismatch",
+      "gold_modified_value": "0,7631",
+      "predicted_modified_value": "0,7631"
+    },
+    {
+      "error_id": "2605.10799v1_0012_err",
+      "detected_correct": true,
+      "type_correct": true,
+      "modified_value_correct": true,
+      "gold_error_type": "statistical_significance_mismatch",
+      "predicted_error_type": "statistical_significance_mismatch",
+      "gold_modified_value": "0.010",
+      "predicted_modified_value": "0.010"
+    },
+    {
+      "error_id": "2605.10799v1_0007_err",
+      "detected_correct": true,
+      "type_correct": true,
+      "modified_value_correct": true,
+      "gold_error_type": "metric_value_mismatch",
+      "predicted_error_type": "metric_value_mismatch",
+      "gold_modified_value": "0.15",
+      "predicted_modified_value": "0.15"
+    },
+    {
+      "error_id": "2605.10799v1_0013_err",
+      "detected_correct": true,
+      "type_correct": true,
+      "modified_value_correct": true,
+      "gold_error_type": "metric_value_mismatch",
+      "predicted_error_type": "metric_value_mismatch",
+      "gold_modified_value": "0.051",
+      "predicted_modified_value": "0.051"
+    },
+    {
+      "error_id": "2605.10799v1_0015_err",
+      "detected_correct": true,
+      "type_correct": true,
+      "modified_value_correct": true,
+      "gold_error_type": "statistical_significance_mismatch",
+      "predicted_error_type": "statistical_significance_mismatch",
+      "gold_modified_value": "0.01",
+      "predicted_modified_value": "0.01"
+    },
+    {
+      "error_id": "2605.10799v1_0018_err",
+      "detected_correct": true,
+      "type_correct": true,
+      "modified_value_correct": true,
+      "gold_error_type": "metric_value_mismatch",
+      "predicted_error_type": "metric_value_mismatch",
+      "gold_modified_value": "0.693",
+      "predicted_modified_value": "0.693"
+    }
+  ]
+}

@@ -1,0 +1,243 @@
+arXiv candidate papers for synthetic numerical inconsistency dataset
+Total selected: 30
+
+1. 2605.02402v1 | score=11
+   Title: Automatic Reflection Level Classification in Hungarian Student Essays
+   Authors: Zsolt Csibi, Mónika Sándor, Mónika Serfőző, et al.
+   Category: cs.CL
+   Keywords: ablation, accuracy, auc, f1, percentage_pattern, results
+   PDF: https://arxiv.org/pdf/2605.02402v1
+   Source: https://arxiv.org/e-print/2605.02402
+
+2. 2605.10799v1 | score=10
+   Title: The Last Word Often Wins: A Format Confound in Chain-of-Thought Corruption Studies
+   Authors: Gabriel Garcia
+   Category: cs.LG
+   Keywords: ablation, accuracy, experiments, percentage_pattern, table
+   PDF: https://arxiv.org/pdf/2605.10799v1
+   Source: https://arxiv.org/e-print/2605.10799
+
+3. 2604.22856v1 | score=10
+   Title: Attention-Augmented YOLOv8 with Ghost Convolution for Real-Time Vehicle Detection in Intelligent Transportation Systems
+   Authors: Syed Sajid Ullah, Muhammad Zunair Zamir, Ahsan Ishfaq, et al.
+   Category: cs.CV
+   Keywords: ablation, f1, map, percentage_pattern, precision, recall
+   PDF: https://arxiv.org/pdf/2604.22856v1
+   Source: https://arxiv.org/e-print/2604.22856
+
+4. 2604.17555v2 | score=10
+   Title: CoSearch: Joint Training of Reasoning and Document Ranking via Reinforcement Learning for Agentic Search
+   Authors: Hansi Zeng, Liam Collins, Bhuvesh Kumar, et al.
+   Category: cs.AI
+   Keywords: ablation, experiments, f1, percentage_pattern, results
+   PDF: https://arxiv.org/pdf/2604.17555v2
+   Source: https://arxiv.org/e-print/2604.17555
+
+5. 2605.02707v1 | score=9
+   Title: SAIL: Structure-Aware Interpretable Learning for Anatomy-Aligned Post-hoc Explanations in OCT
+   Authors: Tienyu Chang, Tianhao Li, Ruogu Fang, et al.
+   Category: cs.CV
+   Keywords: ablation, accuracy, experiments, map, results, table
+   PDF: https://arxiv.org/pdf/2605.02707v1
+   Source: https://arxiv.org/e-print/2605.02707
+
+6. 2603.27752v1 | score=9
+   Title: Retromorphic Testing with Hierarchical Verification for Hallucination Detection in RAG
+   Authors: Boxi Yu, Yuzhong Zhang, Liting Lin, et al.
+   Category: cs.CL
+   Keywords: ablation, f1, map, percentage_pattern, table
+   PDF: https://arxiv.org/pdf/2603.27752v1
+   Source: https://arxiv.org/e-print/2603.27752
+
+7. 2605.09028v1 | score=8
+   Title: Diagnosing and Mitigating Domain Shift in Permission-Based Android Malware Detection
+   Authors: Md Rafid Islam
+   Category: cs.LG
+   Keywords: ablation, accuracy, percentage_pattern, table
+   PDF: https://arxiv.org/pdf/2605.09028v1
+   Source: https://arxiv.org/e-print/2605.09028
+
+8. 2605.03570v1 | score=8
+   Title: Disentangling Shared and Task-Specific Representations from Multi-Modal Clinical Data
+   Authors: He Lyu, Huolin Zeng, Junren Wang, et al.
+   Category: cs.LG
+   Keywords: auc, percentage_pattern, precision, recall, results
+   PDF: https://arxiv.org/pdf/2605.03570v1
+   Source: https://arxiv.org/e-print/2605.03570
+
+9. 2605.03560v1 | score=8
+   Title: Enhance the after-discharge mortality rate prediction via learning from the medical notes
+   Authors: Zijiang Yang
+   Category: cs.LG
+   Keywords: accuracy, auc, percentage_pattern, results, significant
+   PDF: https://arxiv.org/pdf/2605.03560v1
+   Source: https://arxiv.org/e-print/2605.03560
+
+10. 2604.23214v2 | score=8
+   Title: DARC-CLIP: Dynamic Adaptive Refinement with Cross-Attention for Meme Understanding
+   Authors: Qiyuan Jin
+   Category: cs.CL
+   Keywords: ablation, accuracy, f1, results, significant
+   PDF: https://arxiv.org/pdf/2604.23214v2
+   Source: https://arxiv.org/e-print/2604.23214
+
+11. 2604.21713v1 | score=8
+   Title: Unlocking the Power of Critical Factors for 3D Visual Geometry Estimation
+   Authors: Guangkai Xu, Hua Geng, Huanyi Zheng, et al.
+   Category: cs.CV
+   Keywords: ablation, accuracy, experiments, map, results
+   PDF: https://arxiv.org/pdf/2604.21713v1
+   Source: https://arxiv.org/e-print/2604.21713
+
+12. 2604.16758v1 | score=8
+   Title: Frozen Vision Transformers for Dense Prediction on Small Datasets: A Case Study in Arrow Localization
+   Authors: Maxwell Shepherd
+   Category: cs.CV
+   Keywords: ablation, f1, map, precision, results
+   PDF: https://arxiv.org/pdf/2604.16758v1
+   Source: https://arxiv.org/e-print/2604.16758
+
+13. 2603.22977v1 | score=8
+   Title: DariMis: Harm-Aware Modeling for Dari Misinformation Detection on YouTube
+   Authors: Jawid Ahmad Baktash, Mosa Ebrahimi, Mohammad Zarif Joya, et al.
+   Category: cs.CL
+   Keywords: ablation, accuracy, f1, recall, results
+   PDF: https://arxiv.org/pdf/2603.22977v1
+   Source: https://arxiv.org/e-print/2603.22977
+
+14. 2605.10772v1 | score=7
+   Title: Towards a Large Language-Vision Question Answering Model for MSTAR Automatic Target Recognition
+   Authors: David F. Ramirez, Tim L. Overman, Kristen Jaskie, et al.
+   Category: cs.CV
+   Keywords: accuracy, experiments, percentage_pattern, significant
+   PDF: https://arxiv.org/pdf/2605.10772v1
+   Source: https://arxiv.org/e-print/2605.10772
+
+15. 2605.10426v1 | score=7
+   Title: CoWorld-VLA: Thinking in a Multi-Expert World Model for Autonomous Driving
+   Authors: Minqing Huang, Yujiao Xiang, Zihan Liang, et al.
+   Category: cs.CV
+   Keywords: ablation, accuracy, experiments, results
+   PDF: https://arxiv.org/pdf/2605.10426v1
+   Source: https://arxiv.org/e-print/2605.10426
+
+16. 2605.10330v1 | score=7
+   Title: Fast Training of Mixture-of-Experts for Time Series Forecasting via Expert Loss Integration
+   Authors: Btissame El Mahtout, Florian Ziel
+   Category: stat.ML
+   Keywords: ablation, accuracy, results, significant
+   PDF: https://arxiv.org/pdf/2605.10330v1
+   Source: https://arxiv.org/e-print/2605.10330
+
+17. 2605.09610v1 | score=7
+   Title: SmartEval: A Benchmark for Evaluating LLM-Generated Smart Contracts from Natural Language Specifications
+   Authors: Abhinav Goel, Agostino Capponi, Alfio Gliozzo, et al.
+   Category: cs.MA
+   Keywords: ablation, percentage_pattern, table
+   PDF: https://arxiv.org/pdf/2605.09610v1
+   Source: https://arxiv.org/e-print/2605.09610
+
+18. 2605.08302v1 | score=7
+   Title: SGC-RML: A reliable and interpretable longitudinal assessment for PD in real-world DNS
+   Authors: Wenbin Wei, Ruixiang Gao, Suyuan Yao, et al.
+   Category: cs.LG
+   Keywords: auc, experiments, f1, map, results, table
+   PDF: https://arxiv.org/pdf/2605.08302v1
+   Source: https://arxiv.org/e-print/2605.08302
+
+19. 2605.07474v1 | score=7
+   Title: ForgeVLA: Federated Vision-Language-Action Learning without Language Annotations
+   Authors: Yuhao Zhou, Yunpeng Zhu, Yang Zhou, et al.
+   Category: cs.CV
+   Keywords: ablation, experiments, map, significant
+   PDF: https://arxiv.org/pdf/2605.07474v1
+   Source: https://arxiv.org/e-print/2605.07474
+
+20. 2604.14218v1 | score=7
+   Title: MEME-Fusion@CHiPSAL 2026: Multimodal Ablation Study of Hate Detection and Sentiment Analysis on Nepali Memes
+   Authors: Samir Wagle, Reewaj Khanal, Abiral Adhikari
+   Category: cs.CL
+   Keywords: ablation, f1, percentage_pattern
+   PDF: https://arxiv.org/pdf/2604.14218v1
+   Source: https://arxiv.org/e-print/2604.14218
+
+21. 2603.22799v1 | score=7
+   Title: Span Modeling for Idiomaticity and Figurative Language Detection with Span Contrastive Loss
+   Authors: Blake Matheny, Phuong Minh Nguyen, Minh Le Nguyen
+   Category: cs.CL
+   Keywords: ablation, accuracy, f1, results
+   PDF: https://arxiv.org/pdf/2603.22799v1
+   Source: https://arxiv.org/e-print/2603.22799
+
+22. 2603.12920v1 | score=7
+   Title: HMS-BERT: Hybrid Multi-Task Self-Training for Multilingual and Multi-Label Cyberbullying Detection
+   Authors: Zixin Feng, Xinying Cui, Yifan Sun, et al.
+   Category: cs.CL
+   Keywords: ablation, accuracy, experiments, f1
+   PDF: https://arxiv.org/pdf/2603.12920v1
+   Source: https://arxiv.org/e-print/2603.12920
+
+23. 2602.21165v1 | score=7
+   Title: PVminer: A Domain-Specific Tool to Detect the Patient Voice in Patient Generated Data
+   Authors: Samah Fodeh, Linhai Ma, Yan Wang, et al.
+   Category: cs.CL
+   Keywords: ablation, f1, percentage_pattern
+   PDF: https://arxiv.org/pdf/2602.21165v1
+   Source: https://arxiv.org/e-print/2602.21165
+
+24. 2605.10718v1 | score=6
+   Title: An Uncertainty-Aware Resilience Micro-Agent for Causal Observability in the Computing Continuum
+   Authors: Suvi De Silva, Alfreds Lapkovskis, Alaa Saleh, et al.
+   Category: cs.DC
+   Keywords: accuracy, experiments, percentage_pattern
+   PDF: https://arxiv.org/pdf/2605.10718v1
+   Source: https://arxiv.org/e-print/2605.10718
+
+25. 2605.10195v1 | score=6
+   Title: Breaking the Reward Barrier: Accelerating Tree-of-Thought Reasoning via Speculative Exploration
+   Authors: Shuzhang Zhong, Haochen Huang, Shengxuan Qiu, et al.
+   Category: cs.LG
+   Keywords: ablation, experiments, significant
+   PDF: https://arxiv.org/pdf/2605.10195v1
+   Source: https://arxiv.org/e-print/2605.10195
+
+26. 2605.08945v1 | score=6
+   Title: PIDNet: Progressive Implicit Decouple Network for Multimodal Action Quality Assessment
+   Authors: Qiqi Li, Pengfei Wang, Nenggan Zheng
+   Category: cs.CV
+   Keywords: ablation, experiments, map
+   PDF: https://arxiv.org/pdf/2605.08945v1
+   Source: https://arxiv.org/e-print/2605.08945
+
+27. 2605.08660v1 | score=6
+   Title: Optimised Support Vector Regression for California Housing Price Prediction: The Critical Role of Feature Engineering and Hyperparameter Tuning
+   Authors: Emmanuel Adutwum
+   Category: cs.LG
+   Keywords: ablation, percentage_pattern
+   PDF: https://arxiv.org/pdf/2605.08660v1
+   Source: https://arxiv.org/e-print/2605.08660
+
+28. 2605.08028v1 | score=6
+   Title: Adaptive Domain Decomposition Physics-Informed Neural Networks for Traffic State Estimation with Sparse Sensor Data
+   Authors: Eunhan Ka, Ludovic Leclercq, Satish V. Ukkusuri
+   Category: cs.LG
+   Keywords: ablation, experiments, results
+   PDF: https://arxiv.org/pdf/2605.08028v1
+   Source: https://arxiv.org/e-print/2605.08028
+
+29. 2605.07536v1 | score=6
+   Title: GESR: Graph-Based Edge Semantic Reconstruction for Stealthy Communication Detection with Benign-Only Training
+   Authors: Henghui Xu, Yuchen Zhang, Xiaobo Ma
+   Category: cs.CR
+   Keywords: auc, percentage_pattern, results
+   PDF: https://arxiv.org/pdf/2605.07536v1
+   Source: https://arxiv.org/e-print/2605.07536
+
+30. 2604.26517v1 | score=6
+   Title: MTCurv: Deep learning for direct microtubule curvature mapping in noisy fluorescence microscopy images
+   Authors: Achraf Ait Laydi, Sidi Mohamed Sid'El Moctar, Yousef El Mourabit, et al.
+   Category: cs.CV
+   Keywords: ablation, experiments, map
+   PDF: https://arxiv.org/pdf/2604.26517v1
+   Source: https://arxiv.org/e-print/2604.26517
+

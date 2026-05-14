@@ -1,0 +1,1287 @@
+{
+  "paper_id": "2605.02402v1",
+  "metadata": {
+    "arxiv_id": "2605.02402v1",
+    "title": "Automatic Reflection Level Classification in Hungarian Student Essays",
+    "authors": [
+      "Zsolt Csibi",
+      "Mónika Sándor",
+      "Mónika Serfőző",
+      "Kinga Gyöngy",
+      "Kristian Fenech"
+    ],
+    "published": "2026-05-04T09:44:50Z",
+    "updated": "2026-05-04T09:44:50Z",
+    "summary": "Reflective thinking is a key competency in education, but assessing reflective writing remains a time-consuming and subjective task for education experts. While automated reflective analysis has been explored in several languages, Hungarian language was not researched extensively. In this paper, we present the first comprehensive study on automatic reflection level classification in Hungarian student essays. We used a large, expert-annotated Hungarian dataset consisting of 1,954 reflective essays collected over multiple academic years and labeled on a four-level reflection scale. We investigate two approaches: (1) classical machine learning models using TF-IDF and semantic embedding features, and (2) Hungarian-specific transformer models fine-tuned for document-level reflection classification. To address the strong class imbalance in the dataset, we systematically examine class weighting, oversampling, data augmentation, and alternative loss functions. An extensive ablation study is conducted to analyze the contribution of each modeling and balancing strategy. Our results show that shallow machine learning models with appropriate feature engineering achieve strong overall performance, reaching up to 71% overall score averaged over accuracy, F1-score, and ROC AUC metrics, while transformer-based models achieve slightly lower overall score (68%) averaged over the same metrics, but demonstrate better generalization on minority reflection classes. These findings highlight the continued relevance of classical methods for low-resource settings and the robustness of transformer models for imbalanced classification. The proposed dataset and experimental insights provide a solid foundation for future research on automated reflective analysis in Hungarian and other morphologically rich languages.",
+    "categories": [
+      "cs.CL",
+      "cs.AI"
+    ],
+    "primary_category": "cs.CL",
+    "pdf_url": "https://arxiv.org/pdf/2605.02402v1",
+    "abs_url": "https://arxiv.org/abs/2605.02402v1",
+    "source_url": "https://arxiv.org/e-print/2605.02402",
+    "matched_query": "cat:cs.CL AND all:\"F1\" AND all:\"ablation study\"",
+    "candidate_score": 11,
+    "matched_keywords": [
+      "ablation",
+      "accuracy",
+      "auc",
+      "f1",
+      "percentage_pattern",
+      "results"
+    ]
+  },
+  "source_archive": "paper_collection/source/2605.02402v1.tar.gz",
+  "main_tex": "main.tex",
+  "sections": [
+    {
+      "section_id": "s001",
+      "level": "section",
+      "title": "Introduction",
+      "is_results_like": false,
+      "paragraphs": [
+        {
+          "paragraph_id": "s001_p001",
+          "text": "sec:introduction Critically analyzing situations and trying to understand them better is a key skill in human cognition. Reflective thinking is widely recognized as a core educational competency in international frameworks and policy documents . In higher education and professional training, reflective writing is commonly used to encourage deeper learning and professional development . However, evaluating reflective texts is typically a manual process and therefore difficult to scale in educational practice .",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s001_p002",
+          "text": "To address this limitation, recent research has explored automatic reflective text analysis using both classical machine learning and transformer-based natural language processing approaches . These studies suggest that automated reflection classification is feasible across multiple settings and annotation schemes. At the same time, existing work is concentrated mainly on English, German, or multilingual datasets, while Hungarian remains underexplored for document-level reflection classification . This gap is important because Hungarian is a morphologically rich language, and Hungarian NLP benefits from language-specific resources and model development .",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s001_p003",
+          "text": "This study investigates automatic reflection level classification in Hungarian student essays using two model families: (1) classical machine learning with TF-IDF and semantic embeddings, and (2) Hungarian transformer models fine-tuned for document classification. Because our dataset is strongly imbalanced, balancing strategies were evaluated systematically, and an ablation study was conducted to quantify the contribution of each modeling choice.",
+          "numbers": [
+            {
+              "value": "1",
+              "context": "This study investigates automatic reflection level classification in Hungarian student essays using two model families: (1) classical machine learning with TF-IDF and semantic embeddings, and (2) Hungarian transformer models fine-tuned for document classification."
+            },
+            {
+              "value": "2",
+              "context": "This study investigates automatic reflection level classification in Hungarian student essays using two model families: (1) classical machine learning with TF-IDF and semantic embeddings, and (2) Hungarian transformer models fine-tuned for document classification."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s001_p004",
+          "text": "A comprehensive Hungarian analysis of automatic reflection-level classification in student essays, using a large expert-annotated corpus collected across multiple academic years. Comparing two modeling paradigms for Hungarian reflective text classification: classical machine learning with engineered features and fine-tuned Hungarian transformer models. Systematic evaluation of multiple imbalance-handling techniques to improve minority-class performance. An ablation study that clarifies the effect of model family and balancing strategy on classification performance.",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s001_p005",
+          "text": "The rest of the paper will introduce the related works in Section , followed by the methodology in Section . Experimental results are presented in Section , followed by a discussion in Section , and conclusions in Section .",
+          "numbers": []
+        }
+      ],
+      "tables": [],
+      "equations": []
+    },
+    {
+      "section_id": "s002",
+      "level": "section",
+      "title": "Related Work",
+      "is_results_like": false,
+      "paragraphs": [
+        {
+          "paragraph_id": "s002_p001",
+          "text": "This section reviews relevant literature in two main areas. Firstly, it examines the previous literature about the importance of reflective thinking in the field of education. Secondly, it explores, the current state of the automated reflective text classification systems, highlighting key methodologies and findings from prior research.",
+          "numbers": []
+        }
+      ],
+      "tables": [],
+      "equations": []
+    },
+    {
+      "section_id": "s003",
+      "level": "subsection",
+      "title": "Reflective thinking in education",
+      "is_results_like": false,
+      "paragraphs": [
+        {
+          "paragraph_id": "s003_p001",
+          "text": "Multiple international frameworks such as the Tuning project , the OECD Learning Compass 2030 and the EU Key Competences identify reflective thinking or critical reflection as a generic, transformative or transversal competency, respectively, and require educational programmes to incorporate it into learning outcomes.",
+          "numbers": [
+            {
+              "value": "2030",
+              "context": "Multiple international frameworks such as the Tuning project , the OECD Learning Compass 2030 and the EU Key Competences identify reflective thinking or critical reflection as a generic, transformative or transversal competency, respectively, and require educational programmes to incorporate it into learning outcomes."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s003_p002",
+          "text": "Reflective thinking is the deliberate process of analyzing and evaluating one's own thoughts, experiences, and actions to gain deeper insights and improve future decision-making. In university settings, reflective thinking is often explored in the context of learning, for example, by reviewing one's own understanding of the material presented in theoretical courses and critically comparing it with personal beliefs or practical experiences. Reflection also enables students to interpret their experiences during practical placements, fostering deeper learning and professional development. In many professional fields, reflection is employed during the practical training phase to support the development of students' professional skills and the formation of their professional identity. This is evident in education, in teacher training , or in early childhood educator programs , as well as in medical education , nursing programs , and social work training .",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s003_p003",
+          "text": "In professional training settings, as well as in the context of lifelong learning, reflection is viewed as a means of continual personal and professional development because it enables the reflective thinker to withstand habitual action and to seek solutions to problems which may be weakly defined or ambiguous ( ullmann2019automated ) and arise during human encounters.",
+          "numbers": [
+            {
+              "value": "019",
+              "context": "In professional training settings, as well as in the context of lifelong learning, reflection is viewed as a means of continual personal and professional development because it enables the reflective thinker to withstand habitual action and to seek solutions to problems which may be weakly defined or ambiguous ( ullmann2019automated ) and arise during human encounters."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s003_p004",
+          "text": "Reflective writing is a pedagogical practice that can foster reflective thinking, for example through journaling. Its summarizing end product, the reflective essay, can serve as a record of the reflective thinking process and can therefore be formally assessed by teachers, using for instance rubrics.",
+          "numbers": []
+        }
+      ],
+      "tables": [],
+      "equations": []
+    },
+    {
+      "section_id": "s004",
+      "level": "subsection",
+      "title": "Automated reflective text classification systems",
+      "is_results_like": false,
+      "paragraphs": [
+        {
+          "paragraph_id": "s004_p001",
+          "text": "Automated text classification systems have been widely studied in various domains, including sentiment analysis , topic categorization , and educational text analysis . In the context of reflective text classification, several studies have explored the use of machine learning techniques to classify reflective essays based on different aspects.",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s004_p002",
+          "text": "conducted a foundational study on the automated analysis of reflective writing using machine learning approaches. The research evaluated 76 student essays mainly from second- and third-year health, business, and engineering programs, annotated through a large-scale crowdsourcing process involving thousands of contributors. The study adopted a comprehensive reflection model using eight categories: one depth dimension (reflection vs. non-reflection) and seven breadth dimensions, including description of experience, feelings, personal belief, awareness of difficulties, perspective, lessons learned, and future intentions. Using unigram features, several supervised learning algorithms were tested, including Support Vector Machines, Random Forest, Naïve Bayes, and Neural Networks. The models achieved accuracies between 70\\% and 90\\% (Cohen's K = 0.53-0.85), approximately 10\\% lower than manual annotation performance. This work demonstrated that reflective categories in student essays can be reliably identified through automated means, providing a scalable foundation for reflection analytics in educational contexts.",
+          "numbers": [
+            {
+              "value": "76",
+              "context": "The research evaluated 76 student essays mainly from second- and third-year health, business, and engineering programs, annotated through a large-scale crowdsourcing process involving thousands of contributors."
+            },
+            {
+              "value": "70",
+              "context": "The models achieved accuracies between 70\\% and 90\\% (Cohen's K = 0.53-0.85), approximately 10\\% lower than manual annotation performance."
+            },
+            {
+              "value": "90",
+              "context": "The models achieved accuracies between 70\\% and 90\\% (Cohen's K = 0.53-0.85), approximately 10\\% lower than manual annotation performance."
+            },
+            {
+              "value": "0.53",
+              "context": "The models achieved accuracies between 70\\% and 90\\% (Cohen's K = 0.53-0.85), approximately 10\\% lower than manual annotation performance."
+            },
+            {
+              "value": "-0.85",
+              "context": "The models achieved accuracies between 70\\% and 90\\% (Cohen's K = 0.53-0.85), approximately 10\\% lower than manual annotation performance."
+            },
+            {
+              "value": "10",
+              "context": "The models achieved accuracies between 70\\% and 90\\% (Cohen's K = 0.53-0.85), approximately 10\\% lower than manual annotation performance."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s004_p003",
+          "text": "As a continuation of the previous publication, proposed an automated reflective writing analysis system to classify reflection indicators in computer science students' essays using machine learning and natural language processing. The study applied the Reflective Writing Framework (RWF), focusing on the seven breadth categories of reflection as in the previous publication excluding the depth dimension of reflection. Using 74 student essays comprising 1,113 annotated sentences, the authors extracted linguistic features based on n-grams and part-of-speech (PoS) n-grams and employed a Random Forest classifier for binary detection of each indicator. The approach achieved accuracies ranging from 75\\% to 96\\% (Cohen's K = 0.17-0.67), demonstrating that such linguistic representations can effectively capture reflection-related features and enable automated assessment of reflective depth in student writing.",
+          "numbers": [
+            {
+              "value": "74",
+              "context": "Using 74 student essays comprising 1,113 annotated sentences, the authors extracted linguistic features based on n-grams and part-of-speech (PoS) n-grams and employed a Random Forest classifier for binary detection of each indicator."
+            },
+            {
+              "value": "1,113",
+              "context": "Using 74 student essays comprising 1,113 annotated sentences, the authors extracted linguistic features based on n-grams and part-of-speech (PoS) n-grams and employed a Random Forest classifier for binary detection of each indicator."
+            },
+            {
+              "value": "75",
+              "context": "The approach achieved accuracies ranging from 75\\% to 96\\% (Cohen's K = 0.17-0.67), demonstrating that such linguistic representations can effectively capture reflection-related features and enable automated assessment of reflective depth in student writing."
+            },
+            {
+              "value": "96",
+              "context": "The approach achieved accuracies ranging from 75\\% to 96\\% (Cohen's K = 0.17-0.67), demonstrating that such linguistic representations can effectively capture reflection-related features and enable automated assessment of reflective depth in student writing."
+            },
+            {
+              "value": "0.17",
+              "context": "The approach achieved accuracies ranging from 75\\% to 96\\% (Cohen's K = 0.17-0.67), demonstrating that such linguistic representations can effectively capture reflection-related features and enable automated assessment of reflective depth in student writing."
+            },
+            {
+              "value": "-0.67",
+              "context": "The approach achieved accuracies ranging from 75\\% to 96\\% (Cohen's K = 0.17-0.67), demonstrating that such linguistic representations can effectively capture reflection-related features and enable automated assessment of reflective depth in student writing."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s004_p004",
+          "text": "investigated the automatic classification of reflection depth in STEM student writings, focusing on Computer Science (CS) education. Building on the seven reflection indicators defined by - description of experience, understanding, feelings, reasoning, perspective, new learning, and future action - the study explored both the breadth and depth dimensions of reflection. Using a dataset of 1,200 annotated sentences from CS students, the authors extracted four types of linguistic features: n-grams, part-of-speech (POS) n-grams, sentiment features (from AFINN, Bing, and NRC lexicons), and WordNet-Affect features. They experimented with a wide range of machine learning algorithms, including Random Forest, Support Vector Machine (SVM), Naïve Bayes, Bayesian Network, Logistic Regression, Neural Network, and Deep Learning models. A comparative evaluation also included the transformer model XLM-RoBERTa for cross-lingual reflection detection. Their proposed two-stage framework-first classifying reflection indicators, then predicting the depth of reflection (non-reflective, reflective, critically reflective) - achieved higher performance (Cohen's K = 0.70, accuracy = 82.85\\%) than single-stage feature-based approaches. This work demonstrated that using breadth indicators as features significantly improves the automated detection of reflection depth and represents one of the first attempts to automate reflective writing assessment within CS education using machine learning and natural language processing (NLP).",
+          "numbers": [
+            {
+              "value": "1,200",
+              "context": "Using a dataset of 1,200 annotated sentences from CS students, the authors extracted four types of linguistic features: n-grams, part-of-speech (POS) n-grams, sentiment features (from AFINN, Bing, and NRC lexicons), and WordNet-Affect features."
+            },
+            {
+              "value": "0.70",
+              "context": "Their proposed two-stage framework-first classifying reflection indicators, then predicting the depth of reflection (non-reflective, reflective, critically reflective) - achieved higher performance (Cohen's K = 0.70, accuracy = 82.85\\%) than single-stage feature-based approaches."
+            },
+            {
+              "value": "82.85",
+              "context": "Their proposed two-stage framework-first classifying reflection indicators, then predicting the depth of reflection (non-reflective, reflective, critically reflective) - achieved higher performance (Cohen's K = 0.70, accuracy = 82.85\\%) than single-stage feature-based approaches."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s004_p005",
+          "text": "presents PapagAI, one of the first open-source systems for automated feedback on reflective essays, implemented as a hybrid AI approach combining symbolic and neural methods. The system processes student reflections (drawn from a German reflective corpus) and extracts a rich set of signals: it classifies emotional content at the sentence level using a fine-tuned RoBERTa ; it recognizes which Gibbs reflective cycle phase (description, feelings, evaluation, analysis, conclusion, or action plan) a given sentence belongs to via an ELECTRA multi-class classifier; it assesses the overall “reflective level” of the text (e.g. descriptive, dialogical, transformative) using a BERT large model; it also applies BERTopic on sentence embeddings for topic modeling; and it derives linguistic features (e.g. sentence length, subordinate clause counts, discourse markers) via spaCy and RFTagger . These multiple signals are combined via a rule-based reasoner that selects from predefined feedback templates (prompts) to produce tailored formative comments. The authors contrast PapagAI with generative LLM approaches (such as GPT-style models), arguing that the hybrid design offers advantages in transparency, controllability, and alignment with didactic theory, while acknowledging tradeoffs in flexibility and expressiveness.",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s004_p006",
+          "text": "present a comprehensive comparison of shallow machine-learning models and pre-trained transformer models for document-level classification of reflective writing, using a dataset of 1,043 reflections collected from a German teacher-education program. The authors evaluate sparse/textual representations (bag-of-words and term frequency-inverse document frequency as TF-IDF) and psycholinguistic features derived from , feeding these features into several classical classifiers (e.g., Ridge, XGBoost, SGD). They contrast these baselines with fine-tuned transformer families BERT, RoBERTa and long-context transformers like Longformer and BigBird . Their results show a clear advantage for models that can process extended contexts: Longformer and BigBird achieved the highest classification accuracies ( 77\\%), while shallow models remained below 60\\% accuracy. The study therefore highlights the importance of document-level modeling and long-context capacity when automatically assessing reflective texts, and it underscores how modern transformer architectures improve the fidelity of automated reflection classification compared to traditional sparse or psycholinguistic feature approaches.",
+          "numbers": [
+            {
+              "value": "1,043",
+              "context": "present a comprehensive comparison of shallow machine-learning models and pre-trained transformer models for document-level classification of reflective writing, using a dataset of 1,043 reflections collected from a German teacher-education program."
+            },
+            {
+              "value": "77",
+              "context": "Their results show a clear advantage for models that can process extended contexts: Longformer and BigBird achieved the highest classification accuracies ( 77\\%), while shallow models remained below 60\\% accuracy."
+            },
+            {
+              "value": "60",
+              "context": "Their results show a clear advantage for models that can process extended contexts: Longformer and BigBird achieved the highest classification accuracies ( 77\\%), while shallow models remained below 60\\% accuracy."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s004_p007",
+          "text": "investigate the use of segment-level classification to automatically detect reflective categories in preservice physics teachers' writings, using a fine-tuned BERT model. Their corpus has 270 reflections from 92 preservice teachers, each divided into segments that express a single cohesive idea. Drawing on reflection support models e.g. , the authors label units into five canonical reflective elements: circumstances, description, evaluation, alternative devising, and derivation of consequences. In addition to BERT, they implement feedforward neural networks and LSTM baselines, and compare with ELMo + SVM and simpler count-based representations. Their models are carefully tuned via grid search and evaluated under sensitivity analyses (sampling fractions of training data). They apply Integrated Gradients via Captum to highlight token contributions in classification. The results indicate that BERT significantly outperforms the baselines, and that interpretability methods can enhance the pedagogical transparency of automated reflection classification.",
+          "numbers": [
+            {
+              "value": "270",
+              "context": "Their corpus has 270 reflections from 92 preservice teachers, each divided into segments that express a single cohesive idea."
+            },
+            {
+              "value": "92",
+              "context": "Their corpus has 270 reflections from 92 preservice teachers, each divided into segments that express a single cohesive idea."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s004_p008",
+          "text": "present Applications of Deep Language Models for Reflective Writings, a robust study of reflective writing analysis in teacher education contexts, employing deep pretrained models in a multilingual setting. They detail a strict annotation process of student-teachers' reflective journal sentences, and experiment with both traditional machine-learning representations (e.g., bag-of-words) and deep models (notably XLM-Roberta). Their results indicate strong performance (accuracy from 76.6\\% up to 100\\% in high-confidence subsets) and suggest the approach is applicable across more than 100 languages with minimal loss in accuracy. The study underscores the practical value of pretrained architectures for capturing reflective thinking in texts, emphasises annotation and multilingual scalability, and provides an open-source resource framework. The present work builds on this by exploring a Hungarian-language domain and investigating whether a language-specific pretrained model can outperform or complement a multilingual model in reflective-writing classification.",
+          "numbers": [
+            {
+              "value": "76.6",
+              "context": "Their results indicate strong performance (accuracy from 76.6\\% up to 100\\% in high-confidence subsets) and suggest the approach is applicable across more than 100 languages with minimal loss in accuracy."
+            },
+            {
+              "value": "100",
+              "context": "Their results indicate strong performance (accuracy from 76.6\\% up to 100\\% in high-confidence subsets) and suggest the approach is applicable across more than 100 languages with minimal loss in accuracy."
+            },
+            {
+              "value": "100",
+              "context": "Their results indicate strong performance (accuracy from 76.6\\% up to 100\\% in high-confidence subsets) and suggest the approach is applicable across more than 100 languages with minimal loss in accuracy."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s004_p009",
+          "text": "explore the use of natural-language-processing (NLP) and fuzzy logic for analysing students' reflective writing in a psychology course. Their corpus comprises 47 reflective journals, collected via end-of-semester surveys, and pre-processed using NLTK for cleaning and tokenisation. The authors build a domain-specific keyword database and apply a fuzzy logic system that uses count-based features (keyword counts, sentiment-oriented terms) to categorise each journal at a document level into predefined reflection-levels. Their analysis finds that the majority of student writings fall into lower levels of reflection (levels 1-2). Although the methodology is relatively lightweight compared to more recent deep-learning-based approaches, this work demonstrates the value of combining domain lexica and rule-based logic in automated reflection analytics. It thus provides an early proof-of-concept in this space, and serves as a useful baseline when comparing more sophisticated ML/NLP pipelines for reflective writing classification.",
+          "numbers": [
+            {
+              "value": "47",
+              "context": "Their corpus comprises 47 reflective journals, collected via end-of-semester surveys, and pre-processed using NLTK for cleaning and tokenisation."
+            },
+            {
+              "value": "1",
+              "context": "Their analysis finds that the majority of student writings fall into lower levels of reflection (levels 1-2)."
+            },
+            {
+              "value": "-2",
+              "context": "Their analysis finds that the majority of student writings fall into lower levels of reflection (levels 1-2)."
+            }
+          ]
+        }
+      ],
+      "tables": [],
+      "equations": []
+    },
+    {
+      "section_id": "s005",
+      "level": "section",
+      "title": "Methodology",
+      "is_results_like": false,
+      "paragraphs": [],
+      "tables": [],
+      "equations": []
+    },
+    {
+      "section_id": "s006",
+      "level": "subsection",
+      "title": "Dataset",
+      "is_results_like": false,
+      "paragraphs": [
+        {
+          "paragraph_id": "s006_p001",
+          "text": "The dataset used in this study was collected by experts in the field of education and reflective writing at a large public University in Central Europe. They collected essays in Hungarian from students who completed their studies over a period of 4 consecutive years. Throughout the six semesters of the Early Childhood Education programme, students complete pedagogical practice placements in nurseries, where they receive field-based training. At the end of each semester, they are required to write a reflective essay addressing guiding questions related to their practical experiences. To support the preparation of these essays, students receive detailed written guidance (based on the work of ), including an assessment rubric that can be used for self-evaluation prior to submitting the final work.",
+          "numbers": [
+            {
+              "value": "4",
+              "context": "They collected essays in Hungarian from students who completed their studies over a period of 4 consecutive years."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s006_p002",
+          "text": "Experts rated the essays on multiple dimensions (formal, structural, and content-related), including reflection level, format, and text creation. Only reflection-level labels are used in this study. The dataset contains almost 1954 annotated essays from roughly 450 students. The dataset is not publicly available due to privacy and ethical considerations.",
+          "numbers": [
+            {
+              "value": "1954",
+              "context": "The dataset contains almost 1954 annotated essays from roughly 450 students."
+            },
+            {
+              "value": "450",
+              "context": "The dataset contains almost 1954 annotated essays from roughly 450 students."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s006_p003",
+          "text": "The distribution of the reflection levels in the dataset is heavily imbalanced, as demonstrated in Figure . The reflection levels are rated on a scale from 0 to 3 where 0 means no reflection, 1 means low reflection, 2 means medium reflection and 3 means high reflection.",
+          "numbers": [
+            {
+              "value": "0",
+              "context": "The reflection levels are rated on a scale from 0 to 3 where 0 means no reflection, 1 means low reflection, 2 means medium reflection and 3 means high reflection."
+            },
+            {
+              "value": "3",
+              "context": "The reflection levels are rated on a scale from 0 to 3 where 0 means no reflection, 1 means low reflection, 2 means medium reflection and 3 means high reflection."
+            },
+            {
+              "value": "0",
+              "context": "The reflection levels are rated on a scale from 0 to 3 where 0 means no reflection, 1 means low reflection, 2 means medium reflection and 3 means high reflection."
+            },
+            {
+              "value": "1",
+              "context": "The reflection levels are rated on a scale from 0 to 3 where 0 means no reflection, 1 means low reflection, 2 means medium reflection and 3 means high reflection."
+            },
+            {
+              "value": "2",
+              "context": "The reflection levels are rated on a scale from 0 to 3 where 0 means no reflection, 1 means low reflection, 2 means medium reflection and 3 means high reflection."
+            },
+            {
+              "value": "3",
+              "context": "The reflection levels are rated on a scale from 0 to 3 where 0 means no reflection, 1 means low reflection, 2 means medium reflection and 3 means high reflection."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s006_p004",
+          "text": "Ethical permission for this research was granted by the ethics committee of Anonymous University(Number).",
+          "numbers": []
+        }
+      ],
+      "tables": [],
+      "equations": []
+    },
+    {
+      "section_id": "s007",
+      "level": "subsection",
+      "title": "Data Preprocessing",
+      "is_results_like": false,
+      "paragraphs": [
+        {
+          "paragraph_id": "s007_p001",
+          "text": "The essays from the dataset went through an extensive preprocessing phase to make them suitable for the text processing algorithms (Shallow Machine Learning, Transformer models).",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s007_p002",
+          "text": "Firstly, the essays came in different formats (docx, pdf, txt) and the text had to be extracted from these documents. The text extraction was done using the python-docx Python Library for docx files and PdfPlumber Python library was used for pdf files PyPDF2 was also tried, but it had issues with Hungarian characters and inserted random spaces inside words. .",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s007_p003",
+          "text": "Additionally, the documents contained some cover pages as template which are not relevant for the task, so these were removed from the text manually. Also, personally identifiable information was present in the essays, such as names, places, organizations, dates, etc. These were removed with a three-fold approach: first using huspacy python library with their best model possible, namely hu\\_core\\_news\\_trf\\_xl a model built on XLM-RoBERTa-large architecture for named entity recognition removing most of the names, organisations and places and replace them with a generic placeholder like [PER], [LOC], [ORG]. In the second step, the text was cleaned up by removing whitespaces, new lines, tabs, unnecessary punctuation marks and spaces. Finally, the text was cleaned using a custom regular expression (for more details see Additional File 3) to remove dates, month names, roman numerals, and specific Hungarian words which could contain locality information (for example word \"kerület\" which means district in Hungarian and it was not covered by the named entity recognition).",
+          "numbers": [
+            {
+              "value": "3",
+              "context": "Finally, the text was cleaned using a custom regular expression (for more details see Additional File 3) to remove dates, month names, roman numerals, and specific Hungarian words which could contain locality information (for example word \"kerület\" which means district in Hungarian and it was not covered by the named entity recognition)."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s007_p004",
+          "text": "As a last step, the texts were manually checked again for any remaining sensitive information and saved into a dataset format called .arrow which is a columnar format that is suitable for large datasets and efficient for processing with machine learning libraries like HuggingFace's datasets.",
+          "numbers": []
+        }
+      ],
+      "tables": [],
+      "equations": []
+    },
+    {
+      "section_id": "s008",
+      "level": "subsection",
+      "title": "Shallow Machine Learning Models",
+      "is_results_like": false,
+      "paragraphs": [
+        {
+          "paragraph_id": "s008_p001",
+          "text": "The most commonly used models in the literature for reflection detection are the following: Random Forest (RF), XGBoost, CatBoost and RidgeClassifier. These models were tested on the Hungarian essay dataset used in this study. The features for these models in every case were selected from different sources:",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s008_p002",
+          "text": "TFIDF features: using the TFIDFVectorizer from the sklearn Python library, which calculates the term frequency-inverse document frequency of the words in the essays, makes a constant length vector representation of the essays, which can be used by the models. Document embeddings: using pre-trained document embeddings to represent the essays. Based on the Massive Text Embeddings benchmark one of the best model in the multi-lingual category is the Qwen3-4B-Embedding by model. Qwen3 embeddings gives a fixed-length 2560-dimensional vector representation of the essays, which can be used by the models.",
+          "numbers": [
+            {
+              "value": "-4",
+              "context": "Based on the Massive Text Embeddings benchmark one of the best model in the multi-lingual category is the Qwen3-4B-Embedding by model."
+            },
+            {
+              "value": "2560",
+              "context": "Qwen3 embeddings gives a fixed-length 2560-dimensional vector representation of the essays, which can be used by the models."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s008_p003",
+          "text": "The models were trained using the sklearn library and the training was done with a 5-fold cross-validation in each case using StratifiedKFold. The random seed for all experiments was set to 42.",
+          "numbers": [
+            {
+              "value": "5",
+              "context": "The models were trained using the sklearn library and the training was done with a 5-fold cross-validation in each case using StratifiedKFold."
+            },
+            {
+              "value": "42",
+              "context": "The random seed for all experiments was set to 42."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s008_p004",
+          "text": "The data was split into 80\\% training and 20\\% testing split on the essay level, and the results were evaluated using the following metrics: Accuracy, Precision, Recall, F1-score, ROC-AUC. The results were visualized using Confusion Matrices and ROC Curves.",
+          "numbers": [
+            {
+              "value": "80",
+              "context": "The data was split into 80\\% training and 20\\% testing split on the essay level, and the results were evaluated using the following metrics: Accuracy, Precision, Recall, F1-score, ROC-AUC."
+            },
+            {
+              "value": "20",
+              "context": "The data was split into 80\\% training and 20\\% testing split on the essay level, and the results were evaluated using the following metrics: Accuracy, Precision, Recall, F1-score, ROC-AUC."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s008_p005",
+          "text": "As outlined in Figure , the Hungarian essays dataset is heavily imbalanced. Firstly the models were trained on the original data without any balancing techniques to obtain the baseline results.",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s008_p006",
+          "text": "After that multiple balancing techniques were evaluated:",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s008_p007",
+          "text": "Class weighting: using the class\\_weight parameter in the models to give more weight to the minority classes and less weight to the majority classes. XGBoost uses sample weights instead of the class weights. Oversampling techniques: using multiple oversampling techniques SMOTE (Synthetic Minority Over-sampling Technique) and ADASYN (Adaptive Synthetic Sampling), Random Over Sampling and, BorderlineSMOTE from the smote-variants Python library to generate synthetic samples from the minority classes. Ensemble techniques with oversamplers: using EasyEnsembleClassifier , SMOTEBoostClassifier , SMOTEBaggingClassifier , AdaUBoostClassifier , and CompatibleAdaBoostClassifier from the imbalanced-ensemble Python library, to combine the oversampling techniques with ensemble methods.",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s008_p008",
+          "text": "All the results coming from these models were K-fold cross-validated with 5 folds, and the results were averaged over the folds.",
+          "numbers": [
+            {
+              "value": "5",
+              "context": "All the results coming from these models were K-fold cross-validated with 5 folds, and the results were averaged over the folds."
+            }
+          ]
+        }
+      ],
+      "tables": [],
+      "equations": []
+    },
+    {
+      "section_id": "s009",
+      "level": "subsection",
+      "title": "Transformer Models",
+      "is_results_like": false,
+      "paragraphs": [
+        {
+          "paragraph_id": "s009_p001",
+          "text": "Transformer models are powerful deep learning models that have revolutionized the field of natural language processing (NLP) in recent years. The training of transformer models in Hungarian language is challenging due to the limited availability of large-scale annotated datasets and pre-trained models specifically designed for Hungarian. However, several transformer models have been developed that support Hungarian language. From these models, the following were used for this paper:",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s009_p002",
+          "text": "SZTAKI-HLT/hubert-base-cc: introduced a BERT-based model trained on a Hungarian subset of the Common Crawl and a snapshot of the Hungarian Wikipedia. NYTK/PULI-BERT-Large: The work of , they introduced a Hungarian BERT large model based on MegatronBERT.",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s009_p003",
+          "text": "Both hubert and PULI-BERT-Large have a short context window (512 tokens), which is a limitation for document level classification tasks. To address this limitation, chunking with overlap was applied (128 token for chunking and 64 token for overlap which gives a good performance-efficiency as shown by ) to split the essays into smaller chunks and then aggregating the chunk level predictions using average pooling.",
+          "numbers": [
+            {
+              "value": "512",
+              "context": "Both hubert and PULI-BERT-Large have a short context window (512 tokens), which is a limitation for document level classification tasks."
+            },
+            {
+              "value": "128",
+              "context": "To address this limitation, chunking with overlap was applied (128 token for chunking and 64 token for overlap which gives a good performance-efficiency as shown by ) to split the essays into smaller chunks and then aggregating the chunk level predictions using average pooling."
+            },
+            {
+              "value": "64",
+              "context": "To address this limitation, chunking with overlap was applied (128 token for chunking and 64 token for overlap which gives a good performance-efficiency as shown by ) to split the essays into smaller chunks and then aggregating the chunk level predictions using average pooling."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s009_p004",
+          "text": "These models were fine-tuned on the Hungarian essay dataset for the task of reflection level classification. For each model, the pre-trained base model was loaded from the HuggingFace model hub using the transformers Python library. Then a classification head was added on top of the base model to perform document level reflection classification on the 4 categories. The base model weights were frozen in some cases to reduce the number of trainable parameters or not frozen to allow the model to learn the specific task better.",
+          "numbers": [
+            {
+              "value": "4",
+              "context": "Then a classification head was added on top of the base model to perform document level reflection classification on the 4 categories."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s009_p005",
+          "text": "To handle data imbalance during the training of the transformer models, multiple techniques were evaluated:",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s009_p006",
+          "text": "Oversampling: Random oversampling was used to make more samples for the minority classes. To make the new samples by oversampling, the RandomOverSampler (ROS) from the imblearn Python library was used. Text Augmentation: Using text augmentation techniques like backtranslation to generate similar samples for the minority classes. During backtranslation only those samples were considered which had at least 80\\% embedding similarity with the original text to avoid generating too different samples. To make the backtranslated data, English was used as the pivot language. For the translation to English and back to Hungarian the Helsinki-NLP/opus-mt-hu-en and Helsinki-NLP/opus-mt-en-hu models from HuggingFace were used. For calculating the embedding similarity the sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 model was used. Loss Functions: Besides the standard Cross Entropy Loss, Weighted Cross Entropy Loss, Focal Loss and Dice loss were also tried to give more importance to the minority classes during training.",
+          "numbers": [
+            {
+              "value": "80",
+              "context": "During backtranslation only those samples were considered which had at least 80\\% embedding similarity with the original text to avoid generating too different samples."
+            },
+            {
+              "value": "2",
+              "context": "For calculating the embedding similarity the sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 model was used."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s009_p007",
+          "text": "The training pipeline was implemented using the transformers and datasets Python libraries from HuggingFace. Early stopping was used based on the validation accuracy and patience of 5 epochs allowing the model to stop training early and prevent overfitting. During training linear scheduler, AdamW optimizer were used with weight decay and the random seed was 42. The experiments were run on a single NVIDIA 3090 GPU with 24GB of VRAM.",
+          "numbers": [
+            {
+              "value": "5",
+              "context": "Early stopping was used based on the validation accuracy and patience of 5 epochs allowing the model to stop training early and prevent overfitting."
+            },
+            {
+              "value": "42",
+              "context": "During training linear scheduler, AdamW optimizer were used with weight decay and the random seed was 42."
+            },
+            {
+              "value": "3090",
+              "context": "The experiments were run on a single NVIDIA 3090 GPU with 24GB of VRAM."
+            },
+            {
+              "value": "24",
+              "context": "The experiments were run on a single NVIDIA 3090 GPU with 24GB of VRAM."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s009_p008",
+          "text": "As the shallow machine learning models, the transformer models were also trained using an 80\\% training and 20\\% testing split, and the results were calculated with stratified 5-fold cross/validation using the same metrics as described in .",
+          "numbers": [
+            {
+              "value": "80",
+              "context": "As the shallow machine learning models, the transformer models were also trained using an 80\\% training and 20\\% testing split, and the results were calculated with stratified 5-fold cross/validation using the same metrics as described in ."
+            },
+            {
+              "value": "20",
+              "context": "As the shallow machine learning models, the transformer models were also trained using an 80\\% training and 20\\% testing split, and the results were calculated with stratified 5-fold cross/validation using the same metrics as described in ."
+            },
+            {
+              "value": "5",
+              "context": "As the shallow machine learning models, the transformer models were also trained using an 80\\% training and 20\\% testing split, and the results were calculated with stratified 5-fold cross/validation using the same metrics as described in ."
+            }
+          ]
+        }
+      ],
+      "tables": [],
+      "equations": []
+    },
+    {
+      "section_id": "s010",
+      "level": "section",
+      "title": "Experimental Results",
+      "is_results_like": true,
+      "paragraphs": [
+        {
+          "paragraph_id": "s010_p001",
+          "text": "In this section the results of the experiments are presented. First the the results of the Shallow Machine Learning models are described then finally the results of the Transformer models.",
+          "numbers": []
+        }
+      ],
+      "tables": [],
+      "equations": []
+    },
+    {
+      "section_id": "s011",
+      "level": "subsection",
+      "title": "Shallow Machine Learning models",
+      "is_results_like": true,
+      "paragraphs": [
+        {
+          "paragraph_id": "s011_p001",
+          "text": "As presented in , multiple Shallow Machine Learning models with multiple different imbalanced data handling techniques were trained and evaluated on the training dataset. The results of the models are presented in Table . This is not the complete table (for full table see Additional File 1 from the supplementary), it only indicates the best result of each model with the best hyperparameters (like oversampling technique, usage of semantic embeddings etc.).",
+          "numbers": [
+            {
+              "value": "1",
+              "context": "This is not the complete table (for full table see Additional File 1 from the supplementary), it only indicates the best result of each model with the best hyperparameters (like oversampling technique, usage of semantic embeddings etc.)."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s011_p002",
+          "text": "As summarized in Table , the best results were achieved by the SmoteBoostClassifier which are using the SMOTE oversampling model, as a base estimator it uses a Decision tree with 12 maximum depth and taking the Qwen3 semantic embeddings. This model achieved an average score of 0.7176 (averaged over the 3 metrics), with 0,7089 mean accuracy (with 0,0263 standard deviation), 0,6808 mean F1-score (with 0,0309 standard deviation) and 0,7633 mean ROC-AUC score (with 0,0285 standard deviation) averaged over the 5 folds.",
+          "numbers": [
+            {
+              "value": "12",
+              "context": "As summarized in Table , the best results were achieved by the SmoteBoostClassifier which are using the SMOTE oversampling model, as a base estimator it uses a Decision tree with 12 maximum depth and taking the Qwen3 semantic embeddings."
+            },
+            {
+              "value": "0.7176",
+              "context": "This model achieved an average score of 0.7176 (averaged over the 3 metrics), with 0,7089 mean accuracy (with 0,0263 standard deviation), 0,6808 mean F1-score (with 0,0309 standard deviation) and 0,7633 mean ROC-AUC score (with 0,0285 standard deviation) averaged over the 5 folds."
+            },
+            {
+              "value": "3",
+              "context": "This model achieved an average score of 0.7176 (averaged over the 3 metrics), with 0,7089 mean accuracy (with 0,0263 standard deviation), 0,6808 mean F1-score (with 0,0309 standard deviation) and 0,7633 mean ROC-AUC score (with 0,0285 standard deviation) averaged over the 5 folds."
+            },
+            {
+              "value": "0,7089",
+              "context": "This model achieved an average score of 0.7176 (averaged over the 3 metrics), with 0,7089 mean accuracy (with 0,0263 standard deviation), 0,6808 mean F1-score (with 0,0309 standard deviation) and 0,7633 mean ROC-AUC score (with 0,0285 standard deviation) averaged over the 5 folds."
+            },
+            {
+              "value": "0,0263",
+              "context": "This model achieved an average score of 0.7176 (averaged over the 3 metrics), with 0,7089 mean accuracy (with 0,0263 standard deviation), 0,6808 mean F1-score (with 0,0309 standard deviation) and 0,7633 mean ROC-AUC score (with 0,0285 standard deviation) averaged over the 5 folds."
+            },
+            {
+              "value": "0,6808",
+              "context": "This model achieved an average score of 0.7176 (averaged over the 3 metrics), with 0,7089 mean accuracy (with 0,0263 standard deviation), 0,6808 mean F1-score (with 0,0309 standard deviation) and 0,7633 mean ROC-AUC score (with 0,0285 standard deviation) averaged over the 5 folds."
+            },
+            {
+              "value": "0,0309",
+              "context": "This model achieved an average score of 0.7176 (averaged over the 3 metrics), with 0,7089 mean accuracy (with 0,0263 standard deviation), 0,6808 mean F1-score (with 0,0309 standard deviation) and 0,7633 mean ROC-AUC score (with 0,0285 standard deviation) averaged over the 5 folds."
+            },
+            {
+              "value": "0,7633",
+              "context": "This model achieved an average score of 0.7176 (averaged over the 3 metrics), with 0,7089 mean accuracy (with 0,0263 standard deviation), 0,6808 mean F1-score (with 0,0309 standard deviation) and 0,7633 mean ROC-AUC score (with 0,0285 standard deviation) averaged over the 5 folds."
+            },
+            {
+              "value": "0,0285",
+              "context": "This model achieved an average score of 0.7176 (averaged over the 3 metrics), with 0,7089 mean accuracy (with 0,0263 standard deviation), 0,6808 mean F1-score (with 0,0309 standard deviation) and 0,7633 mean ROC-AUC score (with 0,0285 standard deviation) averaged over the 5 folds."
+            },
+            {
+              "value": "5",
+              "context": "This model achieved an average score of 0.7176 (averaged over the 3 metrics), with 0,7089 mean accuracy (with 0,0263 standard deviation), 0,6808 mean F1-score (with 0,0309 standard deviation) and 0,7633 mean ROC-AUC score (with 0,0285 standard deviation) averaged over the 5 folds."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s011_p003",
+          "text": "The confusion matrix of the best model (SMOTEBoost + Qwen3 embeddings + Decision tree with 12 maximum depth) is shown in Fig. . The confusion matrix indicates higher performance on majority classes, while minority-class samples are frequently misclassified as majority-class samples. Even misclassified 3 samples from the majority class 3 as minority class 1.",
+          "numbers": [
+            {
+              "value": "12",
+              "context": "The confusion matrix of the best model (SMOTEBoost + Qwen3 embeddings + Decision tree with 12 maximum depth) is shown in Fig."
+            },
+            {
+              "value": "3",
+              "context": "Even misclassified 3 samples from the majority class 3 as minority class 1."
+            },
+            {
+              "value": "3",
+              "context": "Even misclassified 3 samples from the majority class 3 as minority class 1."
+            },
+            {
+              "value": "1",
+              "context": "Even misclassified 3 samples from the majority class 3 as minority class 1."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s011_p004",
+          "text": "The ROC curve for each class with the best Shallow Machine Learning model is shown in Fig. . The ROC curves show that the SMOTEBoost model can distinguish in a balanced way between the classes, as the AUC scores of each class are above 0.73 with a better performance on the class 1.",
+          "numbers": [
+            {
+              "value": "0.73",
+              "context": "The ROC curves show that the SMOTEBoost model can distinguish in a balanced way between the classes, as the AUC scores of each class are above 0.73 with a better performance on the class 1."
+            },
+            {
+              "value": "1",
+              "context": "The ROC curves show that the SMOTEBoost model can distinguish in a balanced way between the classes, as the AUC scores of each class are above 0.73 with a better performance on the class 1."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s011_p005",
+          "text": "In general, classical machine learning models which are able to handle imbalanced data well, like XGBoost, RidgeClassifier, Random Forest achieved good results on this dataset. However these models mostly learnt to classify the majority class well, not even predicting the minority classes correctly as shown on the Fig. . The introduction of oversampling/undersampling techniques and class balancing made the models classify the minority classes occasionally, but not necessarily improve the overall performance of the models. Besides the EasyEnsemble model, the introduction of ensemble techniques with oversampling/undersampling, made similar or even better results than the base shallow machine learning models.",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s011_p006",
+          "text": "Additionally, in some cases handling the imbalance made the models worse because they started to misclassify the majority classes heavily. One example when this happened is with the RidgeClassifier. It produced a good ROC-AUC score, but does not necessarily mean high performance in the other metrics as well like accuracy and F1-score. For example RidgeClassifier using Qwen3 embeddings with alpha parameter of 5, no class balancing and SMOTE oversampling technique achieved 0,7131 ROC-AUC score (with 0,0379 standard deviation), but only 0,5162 accuracy (with 0,0356 standard deviation) over the 5 fold. The ROC-AUC curves and confusion matrix of this model are shown in Fig. and Fig. .",
+          "numbers": [
+            {
+              "value": "5",
+              "context": "For example RidgeClassifier using Qwen3 embeddings with alpha parameter of 5, no class balancing and SMOTE oversampling technique achieved 0,7131 ROC-AUC score (with 0,0379 standard deviation), but only 0,5162 accuracy (with 0,0356 standard deviation) over the 5 fold."
+            },
+            {
+              "value": "0,7131",
+              "context": "For example RidgeClassifier using Qwen3 embeddings with alpha parameter of 5, no class balancing and SMOTE oversampling technique achieved 0,7131 ROC-AUC score (with 0,0379 standard deviation), but only 0,5162 accuracy (with 0,0356 standard deviation) over the 5 fold."
+            },
+            {
+              "value": "0,0379",
+              "context": "For example RidgeClassifier using Qwen3 embeddings with alpha parameter of 5, no class balancing and SMOTE oversampling technique achieved 0,7131 ROC-AUC score (with 0,0379 standard deviation), but only 0,5162 accuracy (with 0,0356 standard deviation) over the 5 fold."
+            },
+            {
+              "value": "0,5162",
+              "context": "For example RidgeClassifier using Qwen3 embeddings with alpha parameter of 5, no class balancing and SMOTE oversampling technique achieved 0,7131 ROC-AUC score (with 0,0379 standard deviation), but only 0,5162 accuracy (with 0,0356 standard deviation) over the 5 fold."
+            },
+            {
+              "value": "0,0356",
+              "context": "For example RidgeClassifier using Qwen3 embeddings with alpha parameter of 5, no class balancing and SMOTE oversampling technique achieved 0,7131 ROC-AUC score (with 0,0379 standard deviation), but only 0,5162 accuracy (with 0,0356 standard deviation) over the 5 fold."
+            },
+            {
+              "value": "5",
+              "context": "For example RidgeClassifier using Qwen3 embeddings with alpha parameter of 5, no class balancing and SMOTE oversampling technique achieved 0,7131 ROC-AUC score (with 0,0379 standard deviation), but only 0,5162 accuracy (with 0,0356 standard deviation) over the 5 fold."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s011_p007",
+          "text": "In Table the results of an ablation study are presented. This shows the average performance of the models when using or not using a specific technique like class balancing, oversampling and semantic embeddings. One finding is that the models without class balancing achieved better results in every metric compared to the models with class balancing. In this dataset, models without class balancing obtained higher average scores across these metrics , as the models are able to learn the class distribution well without any additional techniques and class balancing made the models misclassify more samples from the majority class.",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s011_p008",
+          "text": "Similarly, oversampling techniques also did not necessarily improve the overall performance of the models. Oversampling is associated with higher F1, while non-oversampled settings show higher Accuracy and ROC-AUC. The usage of semantic embeddings improved the ROC-AUC scores of the models significantly, however the accuracy and F1-scores were better without using semantic embeddings. This shows that semantic embeddings can help the models to distinguish between the classes better. These techniques can help the models to classify the minority classes better, however they do not necessarily improve the overall performance of the models.",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s011_p009",
+          "text": "Overall, the ablation study shows that the effectiveness of these techniques can vary depending on the specific dataset and model used. It is important to note that due to the high class imbalance in the dataset, the models without any balancing techniques are mostly biased towards the majority class, which can lead to higher accuracy but lower performance on minority classes. The usage of these techniques made the models to at least classify some samples from the minority classes correctly, which is important in imbalanced classification tasks.",
+          "numbers": []
+        }
+      ],
+      "tables": [
+        {
+          "table_id": "s011_t001",
+          "caption": "Best result of each model using the Hungarian essay dataset. The results are averaged over 5 folds. The best results in each column are in bold. Green checkmark ( ) indicates the usage of the specific technique, while red cross ( ) indicates its absence. The abbreviation OS. stands for Oversampling, while Qwen3-E. stands for Qwen3 Embeddings.",
+          "label": "tab:shallow_results",
+          "raw_latex": "\\begin{table*}[!t]\n    \\centering\n    \\resizebox{1.0\\textwidth}{!}{\n    \\begin{tabular}{|c|c|c|c|c|c|c|}\n    \\hline\n        \\textbf{Model} & \\textbf{OS.} & \\textbf{Qwen3-E.} & \\textbf{Accruacy} & \\textbf{F1} & \\textbf{ROC Auc} & \\textbf{Overall} \\\\ \\hline\n        \\textbf{EasyEnsemble} & \\cmark & \\cmark & \\num{0,6320} & \\num{0,6481} & \\num{0,7240} & \\num{0,6680} \\\\ \\hline\n        \\textbf{AdaUBoost} & \\cmark & \\cmark & \\num{0,6967} & \\num{0,6197} & \\num{0,7426} & \\num{0,6863} \\\\ \\hline\n        \\textbf{XG-Boost} & \\xmark & \\cmark & \\num{0,7082} & \\num{0,6668} & \\num{0,7178} & \\num{0,6976} \\\\ \\hline\n        \\textbf{CompatibleAdaBoost} & \\cmark & \\cmark & \\num{0,7075} & \\num{0,6568} & \\num{0,7364} & \\num{0,7003} \\\\ \\hline\n        \\textbf{Random Forest} & \\xmark & \\cmark & \\num{0,7056} & \\num{0,6613} & \\num{0,7360} & \\num{0,7010} \\\\ \\hline\n        \\textbf{CatBoost} & \\xmark & \\cmark & \\num{0,7012} & \\num{0,6540} & \\num{0,7480} & \\num{0,7010} \\\\ \\hline\n        \\textbf{SMOTEBagging} & \\cmark & \\cmark & \\num{0,6973} & \\num{0,6623} & \\num{0,7569} & \\num{0,7055} \\\\ \\hline\n        \\textbf{RidgeClassifier} & \\xmark & \\cmark & \\textbf{\\num[mode=text]{0,7223}} & \\textbf{\\num{0,6833}} & \\num{0,7339} & \\num{0,7131} \\\\ \\hline\n        \\textbf{SMOTEBoost} & \\cmark & \\cmark & \\num{0,7088} & \\num{0,6808} & \\textbf{\\num{0,7633}} & \\textbf{\\num{0,7176}} \\\\ \\hline\n    \\end{tabular}\n    }\n    \\vspace{0.2cm}\n    \\caption[]{Best result of each model using the Hungarian \n    essay dataset. The results are averaged over 5 folds. The best \n    results in each column are in bold. Green checkmark \n    (\\cmark) indicates the usage of the specific technique, \n    while red cross (\\xmark) indicates its absence. The abbreviation OS.\n    stands for Oversampling, while Qwen3-E. stands for Qwen3 Embeddings.}\n    \\label{tab:shallow_results}\n\\end{table*}",
+          "numbers": [
+            "1.0",
+            "0,6320",
+            "0,6481",
+            "0,7240",
+            "0,6680",
+            "0,6967",
+            "0,6197",
+            "0,7426",
+            "0,6863",
+            "0,7082",
+            "0,6668",
+            "0,7178",
+            "0,6976",
+            "0,7075",
+            "0,6568",
+            "0,7364",
+            "0,7003",
+            "0,7056",
+            "0,6613",
+            "0,7360",
+            "0,7010",
+            "0,7012",
+            "0,6540",
+            "0,7480",
+            "0,7010",
+            "0,6973",
+            "0,6623",
+            "0,7569",
+            "0,7055",
+            "0,7223",
+            "0,6833",
+            "0,7339",
+            "0,7131",
+            "0,7088",
+            "0,6808",
+            "0,7633",
+            "0,7176",
+            "0.2",
+            "5"
+          ]
+        },
+        {
+          "table_id": "s011_t002",
+          "caption": "Ablation study results of different techniques on the Hungarian essays dataset. The results are averaged over the models which were 5-fold cross-validated. Green checkmark ( ) indicates the usage of the specific technique, while red cross ( ) indicates its absence. The best results in each row are in bold.",
+          "label": "tab:method_performance",
+          "raw_latex": "\\begin{table*}[t!]\n\\centering\n\\resizebox{1.0\\textwidth}{!}{\n\\begin{tabular}{|c|cc|cc|cc|cc|}\n\\hline\n\\textbf{Method name} &\n\\multicolumn{2}{c|}{\\textbf{Accuracy}} &\n\\multicolumn{2}{c|}{\\textbf{F1}} &\n\\multicolumn{2}{c|}{\\textbf{ROC AUC}} &\n\\multicolumn{2}{c|}{\\textbf{Overall}} \\\\\n & \\textbf{\\cmark} & \\textbf{\\xmark} & \\textbf{\\cmark} & \\textbf{\\xmark} & \\textbf{\\cmark} & \\textbf{\\xmark} & \\textbf{\\cmark} & \\textbf{\\xmark} \\\\ \\hline\nClass balancing & \\num{0,6408} & \\textbf{\\num{0,6672}} & \\num{0,6283} & \\textbf{\\num{0,6404}} & \\num{0,7083} & \\textbf{\\num{0,7134}} & \\num{0,6591} & \\textbf{\\num{0,6736}} \\\\ \nOversampling & \\num{0,6481} & \\textbf{\\num{0,6724}} & \\textbf{\\num{0,6358}} & \\num{0,6294} & \\num{0,7087} & \\textbf{\\num{0,7176}} & \\num{0,6604} & \\textbf{\\num{0,6731}} \\\\ \nSemantic Embeddings & \\num{0,5977} & \\textbf{\\num{0,6259}} & \\textbf{\\num{0,5891}} & \\num{0,5772} & \\textbf{\\num{0,6627}} & \\num{0,6446} & \\textbf{\\num{0,6165}} & \\num{0,6159} \\\\ \\hline\n\\end{tabular}\n}\n\\vspace{0.2cm}\n\\caption{Ablation study results of different techniques on the Hungarian essays dataset. The results are averaged over the models which were 5-fold cross-validated. Green checkmark (\\cmark) indicates the usage of the specific technique, while red cross (\\xmark) indicates its absence. The best results in each row are in bold.}\n\\label{tab:method_performance}\n\\end{table*}",
+          "numbers": [
+            "1.0",
+            "2",
+            "2",
+            "2",
+            "2",
+            "0,6408",
+            "0,6672",
+            "0,6283",
+            "0,6404",
+            "0,7083",
+            "0,7134",
+            "0,6591",
+            "0,6736",
+            "0,6481",
+            "0,6724",
+            "0,6358",
+            "0,6294",
+            "0,7087",
+            "0,7176",
+            "0,6604",
+            "0,6731",
+            "0,5977",
+            "0,6259",
+            "0,5891",
+            "0,5772",
+            "0,6627",
+            "0,6446",
+            "0,6165",
+            "0,6159",
+            "0.2",
+            "5"
+          ]
+        }
+      ],
+      "equations": []
+    },
+    {
+      "section_id": "s012",
+      "level": "subsection",
+      "title": "Transformer models",
+      "is_results_like": true,
+      "paragraphs": [
+        {
+          "paragraph_id": "s012_p001",
+          "text": "As mentioned in Section , two Hungarian pre-trained transformer models were supervised fine-tuned on the training dataset. The best results of the selected models and selected hyperparameters (oversampling/data augmentation, different loss functions and backbone freezing) are presented in Table (for more results see Additional File 2).",
+          "numbers": [
+            {
+              "value": "2",
+              "context": "The best results of the selected models and selected hyperparameters (oversampling/data augmentation, different loss functions and backbone freezing) are presented in Table (for more results see Additional File 2)."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s012_p002",
+          "text": "Generally the PULI-BERT-Large model achieved better results than the hubert-base-cc in the same hyperparameter settings. The best overall results were achieved by the PULI-BERT-Large model using Cross-Entropy loss function with backtranslation technique, achieving an average score of 0,6872 (averaged over the 3 metrics), with 0,7095 mean accuracy (with 0,0123 standard deviation), 0,6762 mean F1-score (with 0,0244 standard deviation) and 0,6760 mean ROC-AUC score (with 0,0196 standard deviation).",
+          "numbers": [
+            {
+              "value": "0,6872",
+              "context": "The best overall results were achieved by the PULI-BERT-Large model using Cross-Entropy loss function with backtranslation technique, achieving an average score of 0,6872 (averaged over the 3 metrics), with 0,7095 mean accuracy (with 0,0123 standard deviation), 0,6762 mean F1-score (with 0,0244 standard deviation) and 0,6760 mean ROC-AUC score (with 0,0196 standard deviation)."
+            },
+            {
+              "value": "3",
+              "context": "The best overall results were achieved by the PULI-BERT-Large model using Cross-Entropy loss function with backtranslation technique, achieving an average score of 0,6872 (averaged over the 3 metrics), with 0,7095 mean accuracy (with 0,0123 standard deviation), 0,6762 mean F1-score (with 0,0244 standard deviation) and 0,6760 mean ROC-AUC score (with 0,0196 standard deviation)."
+            },
+            {
+              "value": "0,7095",
+              "context": "The best overall results were achieved by the PULI-BERT-Large model using Cross-Entropy loss function with backtranslation technique, achieving an average score of 0,6872 (averaged over the 3 metrics), with 0,7095 mean accuracy (with 0,0123 standard deviation), 0,6762 mean F1-score (with 0,0244 standard deviation) and 0,6760 mean ROC-AUC score (with 0,0196 standard deviation)."
+            },
+            {
+              "value": "0,0123",
+              "context": "The best overall results were achieved by the PULI-BERT-Large model using Cross-Entropy loss function with backtranslation technique, achieving an average score of 0,6872 (averaged over the 3 metrics), with 0,7095 mean accuracy (with 0,0123 standard deviation), 0,6762 mean F1-score (with 0,0244 standard deviation) and 0,6760 mean ROC-AUC score (with 0,0196 standard deviation)."
+            },
+            {
+              "value": "0,6762",
+              "context": "The best overall results were achieved by the PULI-BERT-Large model using Cross-Entropy loss function with backtranslation technique, achieving an average score of 0,6872 (averaged over the 3 metrics), with 0,7095 mean accuracy (with 0,0123 standard deviation), 0,6762 mean F1-score (with 0,0244 standard deviation) and 0,6760 mean ROC-AUC score (with 0,0196 standard deviation)."
+            },
+            {
+              "value": "0,0244",
+              "context": "The best overall results were achieved by the PULI-BERT-Large model using Cross-Entropy loss function with backtranslation technique, achieving an average score of 0,6872 (averaged over the 3 metrics), with 0,7095 mean accuracy (with 0,0123 standard deviation), 0,6762 mean F1-score (with 0,0244 standard deviation) and 0,6760 mean ROC-AUC score (with 0,0196 standard deviation)."
+            },
+            {
+              "value": "0,6760",
+              "context": "The best overall results were achieved by the PULI-BERT-Large model using Cross-Entropy loss function with backtranslation technique, achieving an average score of 0,6872 (averaged over the 3 metrics), with 0,7095 mean accuracy (with 0,0123 standard deviation), 0,6762 mean F1-score (with 0,0244 standard deviation) and 0,6760 mean ROC-AUC score (with 0,0196 standard deviation)."
+            },
+            {
+              "value": "0,0196",
+              "context": "The best overall results were achieved by the PULI-BERT-Large model using Cross-Entropy loss function with backtranslation technique, achieving an average score of 0,6872 (averaged over the 3 metrics), with 0,7095 mean accuracy (with 0,0123 standard deviation), 0,6762 mean F1-score (with 0,0244 standard deviation) and 0,6760 mean ROC-AUC score (with 0,0196 standard deviation)."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s012_p003",
+          "text": "Despite PULI-BERT-Large being better in overall score, hubert shows higher minority-class sensitivity in the reported confusion matrices and ROC curves. A clear difference between the two models can be observed in the ROC curves and confusion matrices in Fig. . The ROC curves show worse performance from both transformer models compared to the best Shallow Machine Learning models, however the transformer models are able to classify the minority classes better, as shown in the confusion matrices in Fig. and Fig. .",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s012_p004",
+          "text": "The experiments with different loss functions are presented in Table . The best results were achieved by the Cross-Entropy Loss, which is the standard loss function for classification tasks, yields the highest aggregate performance among the tested losses. The Dice Loss achieved similar results, while the Focal loss and Weighted Cross-Entropy Loss achieved worse results.",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s012_p005",
+          "text": "The results of an ablation study on the transformer models are presented in Table . The table shows the average performance of the models when using or not using a specific technique like oversampling, data augmentation and freezing the backbone during training. As the table shows, both oversampling and data augmentation are associated with higher average transformer performance in this study. Compared to shallow models, oversampling and data augmentation have a more significant positive impact on the performance of the transformer models. However, freezing the backbone during training significantly decreased the performance of the models, which shows the importance of full fine-tuning when adapting transformer models to specific tasks.",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s012_p006",
+          "text": "The overall results of the transformer models are little lower than the best Shallow Machine Learning models. The best results with the transformer models are around 68\\% overall score averaged over accuracy, F1-score, and ROC AUC metrics. However the transformer models are able to classify the minority classes better, as the confusion matrix in Fig. and Fig. presents. Confusion matrices indicate improved minority-class detection for transformer models compared to shallow baselines in these settings. However, due to the high class imbalance, most minority class samples are still misclassified as the majority classes.",
+          "numbers": [
+            {
+              "value": "68",
+              "context": "The best results with the transformer models are around 68\\% overall score averaged over accuracy, F1-score, and ROC AUC metrics."
+            }
+          ]
+        }
+      ],
+      "tables": [
+        {
+          "table_id": "s012_t001",
+          "caption": "Best result of each Transformer model using the Hungarian essay dataset. The results are averaged over 5 folds. The best results in each column are in bold. Green checkmark ( ) indicates the usage of the specific technique, while red cross ( ) indicates its absence.",
+          "label": "tab:transformer_results",
+          "raw_latex": "\\begin{table*}[!t]\n    \\centering\n    \\resizebox{1.0\\textwidth}{!}{\n    \\begin{tabular}{|c|c|c|}\n    \\hline\n        \\textbf{Model} & \\textbf{hubert-base-cc} & \\textbf{PULI-BERT-Large} \\\\ \\hline\n        \\textbf{Loss function} & Focal & Cross-Entropy \\\\ \\hline\n        \\textbf{Oversampling/Backtranslation} & \\cmark & \\cmark \\\\ \\hline\n        \\textbf{Backbone freeze} & \\xmark & \\xmark \\\\ \\hline\n        \\textbf{Accuracy} & \\num{0,6967} & \\textbf{\\num{0,7095}} \\\\ \\hline\n        \\textbf{F1} & \\num{0,6601} & \\textbf{\\num{0,6762}} \\\\ \\hline\n        \\textbf{ROC Auc} & \\num{0,6962} & \\textbf{\\num{0,6760}} \\\\ \\hline\n        \\textbf{Overall} & \\num{0,6843} & \\textbf{\\num{0,6872}} \\\\ \\hline\n    \\end{tabular}\n    }\n    \\vspace{0.2cm}\n    \\caption[]{Best result of each Transformer model using the Hungarian essay dataset. The results are averaged over 5 folds. \n    The best results in each column are in bold. Green checkmark (\\cmark) indicates the usage of the specific technique, \n    while red cross (\\xmark) indicates its absence.}\n    \\label{tab:transformer_results}\n\\end{table*}",
+          "numbers": [
+            "1.0",
+            "0,6967",
+            "0,7095",
+            "0,6601",
+            "0,6762",
+            "0,6962",
+            "0,6760",
+            "0,6843",
+            "0,6872",
+            "0.2",
+            "5"
+          ]
+        },
+        {
+          "table_id": "s012_t002",
+          "caption": "Results with different loss functions, metrics were averaged over 2 transformer models and different hyperparameters (like oversampling and data augmentation). The best results in each column are in bold.",
+          "label": "tab:transformer_loss_functions",
+          "raw_latex": "\\begin{table*}[!t]\n    \\centering\n    \n    \\resizebox{1.0\\textwidth}{!}{\n    \\begin{tabular}{|c|c|c|c|c|}\n    \\hline\n        \\textbf{Losses} & \\textbf{Accuracy} & \\textbf{F1} & \\textbf{ROC-AUC} & \\textbf{Overall} \\\\ \\hline\n        \\textbf{Cross-Entropy Loss} & \\num{0.5614} & \\num{0.5361} & \\textbf{\\num{0.6217}} & \\textbf{\\num{0.5731}} \\\\ \\hline\n        \\textbf{Dice Loss} & \\textbf{\\num{0.5670}} & \\textbf{\\num{0.5529}} & \\num{0.5951} & \\num{0.5716} \\\\ \\hline\n        \\textbf{Focal Loss} & \\num{0.4800} & \\num{0.4523} & \\num{0.6029}& \\num{0.5118} \\\\ \\hline\n        \\textbf{Weighted Cross-Entropy Loss} & \\num{0.4822} & \\num{0.4502} & \\num{0.6044} & \\num{0.5123} \\\\ \\hline\n    \\end{tabular}\n    }\n    \\vspace{0.2cm}\n    \\caption{Results with different loss functions, metrics were averaged over 2 transformer models and different hyperparameters (like oversampling and data augmentation). The best results in each column are in bold.}\n    \\label{tab:transformer_loss_functions}\n\\end{table*}",
+          "numbers": [
+            "1.0",
+            "0.5614",
+            "0.5361",
+            "0.6217",
+            "0.5731",
+            "0.5670",
+            "0.5529",
+            "0.5951",
+            "0.5716",
+            "0.4800",
+            "0.4523",
+            "0.6029",
+            "0.5118",
+            "0.4822",
+            "0.4502",
+            "0.6044",
+            "0.5123",
+            "0.2",
+            "2"
+          ]
+        },
+        {
+          "table_id": "s012_t003",
+          "caption": "Ablation study results of different techniques on the transformer models using the Hungarian essays dataset. The results are averaged over the 2 transformer models and different hyperparameters. The values in parentheses indicate the relative change compared to the baseline model without using the specific technique. Green values with upward arrows indicate improvement, while red values with downward arrows indicate performance decrease.",
+          "label": "tab:transformer_ablations",
+          "raw_latex": "\\begin{table*}[!t]\n    \\centering\n    \\resizebox{1.0\\textwidth}{!}{\n    \\begin{tabular}{|c|c|c|c|c|}\n    \\hline\n    \\textbf{Method} & \\textbf{Accuracy} & \\textbf{F1} & \\textbf{ROC-AUC} & \\textbf{Overall} \\\\ \\hline\n    ROS & \\num{0.5784} (\\textcolor{green}{27\\% $\\uparrow$}) & \\num{0.5914} (\\textcolor{green}{30\\% $\\uparrow$}) & \\num{0.6389} (\\textcolor{green}{8\\% $\\uparrow$}) & \\num{0.6029} (\\textcolor{green}{22\\% $\\uparrow$}) \\\\ \\hline\n    Backtranslation & \\num{0.6859} (\\textcolor{green}{38\\% $\\uparrow$}) & \\num{0.6119} (\\textcolor{green}{32\\% $\\uparrow$}) & \\num{0.6259} (\\textcolor{green}{7\\% $\\uparrow$}) & \\num{0.6412} (\\textcolor{green}{26\\% $\\uparrow$}) \\\\ \\hline\n    Freeze Encoder & \\num{0.4476} (\\textcolor{red}{-15\\% $\\downarrow$}) & \\num{0.4247} (\\textcolor{red}{-14\\% $\\downarrow$}) & \\num{0.5634} (\\textcolor{red}{-8\\% $\\downarrow$}) & \\num{0.4786} (\\textcolor{red}{-12\\% $\\downarrow$}) \\\\ \\hline\n    \\end{tabular}\n    }\n    \\vspace{0.2cm}\n    \\caption{Ablation study results of different techniques on the transformer models using the \n    Hungarian essays dataset. The results are averaged over the 2 transformer models and different \n    hyperparameters. The values in parentheses indicate the relative change compared to the baseline \n    model without using the specific technique. Green values with upward arrows indicate improvement, \n    while red values with downward arrows indicate performance decrease.}\n    \\label{tab:transformer_ablations}\n\\end{table*}",
+          "numbers": [
+            "1.0",
+            "0.5784",
+            "27",
+            "0.5914",
+            "30",
+            "0.6389",
+            "8",
+            "0.6029",
+            "22",
+            "0.6859",
+            "38",
+            "0.6119",
+            "32",
+            "0.6259",
+            "7",
+            "0.6412",
+            "26",
+            "0.4476",
+            "-15",
+            "0.4247",
+            "-14",
+            "0.5634",
+            "-8",
+            "0.4786",
+            "-12",
+            "0.2",
+            "2"
+          ]
+        }
+      ],
+      "equations": []
+    },
+    {
+      "section_id": "s013",
+      "level": "subsection",
+      "title": "Statistical significance test",
+      "is_results_like": true,
+      "paragraphs": [
+        {
+          "paragraph_id": "s013_p001",
+          "text": "In this section the results of the statistical significance test are presented. The T-test was used to compare the performance of the best shallow machine learning model (SMOTEBoost + Qwen3 embeddings + Decision tree with 12 maximum depth) and the best transformer model (PULI-BERT-Large with backtranslation and cross-entropy loss) on the Hungarian essays dataset. The T-test was performed on the Accuracy, F1-score, ROC-AUC score and Macro-F1 score of the two models across the 5 folds.",
+          "numbers": [
+            {
+              "value": "12",
+              "context": "The T-test was used to compare the performance of the best shallow machine learning model (SMOTEBoost + Qwen3 embeddings + Decision tree with 12 maximum depth) and the best transformer model (PULI-BERT-Large with backtranslation and cross-entropy loss) on the Hungarian essays dataset."
+            },
+            {
+              "value": "5",
+              "context": "The T-test was performed on the Accuracy, F1-score, ROC-AUC score and Macro-F1 score of the two models across the 5 folds."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s013_p002",
+          "text": "The results show that there are no statistically significant differences between the two models in terms of Accuracy (t = -0.0464 , p = 0.9652 ) and Weighted F1-score (t = 0.2862 , p = 0.7889 ).",
+          "numbers": [
+            {
+              "value": "-0.0464",
+              "context": "The results show that there are no statistically significant differences between the two models in terms of Accuracy (t = -0.0464 , p = 0.9652 ) and Weighted F1-score (t = 0.2862 , p = 0.7889 )."
+            },
+            {
+              "value": "0.9652",
+              "context": "The results show that there are no statistically significant differences between the two models in terms of Accuracy (t = -0.0464 , p = 0.9652 ) and Weighted F1-score (t = 0.2862 , p = 0.7889 )."
+            },
+            {
+              "value": "0.2862",
+              "context": "The results show that there are no statistically significant differences between the two models in terms of Accuracy (t = -0.0464 , p = 0.9652 ) and Weighted F1-score (t = 0.2862 , p = 0.7889 )."
+            },
+            {
+              "value": "0.7889",
+              "context": "The results show that there are no statistically significant differences between the two models in terms of Accuracy (t = -0.0464 , p = 0.9652 ) and Weighted F1-score (t = 0.2862 , p = 0.7889 )."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s013_p003",
+          "text": "Similarly, no statistically significant difference was observed for the Macro-F1 score (t = -0.9815 , p = 0.3819 ).",
+          "numbers": [
+            {
+              "value": "-0.9815",
+              "context": "Similarly, no statistically significant difference was observed for the Macro-F1 score (t = -0.9815 , p = 0.3819 )."
+            },
+            {
+              "value": "0.3819",
+              "context": "Similarly, no statistically significant difference was observed for the Macro-F1 score (t = -0.9815 , p = 0.3819 )."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s013_p004",
+          "text": "In contrast, a statistically significant difference was found for ROC-AUC (t = 5.5053 , p = 0.0053 ), where the shallow model achieved higher scores than the transformer model.",
+          "numbers": [
+            {
+              "value": "5.5053",
+              "context": "In contrast, a statistically significant difference was found for ROC-AUC (t = 5.5053 , p = 0.0053 ), where the shallow model achieved higher scores than the transformer model."
+            },
+            {
+              "value": "0.0053",
+              "context": "In contrast, a statistically significant difference was found for ROC-AUC (t = 5.5053 , p = 0.0053 ), where the shallow model achieved higher scores than the transformer model."
+            }
+          ]
+        }
+      ],
+      "tables": [],
+      "equations": []
+    },
+    {
+      "section_id": "s014",
+      "level": "section",
+      "title": "Discussion",
+      "is_results_like": false,
+      "paragraphs": [
+        {
+          "paragraph_id": "s014_p001",
+          "text": "The findings indicate that automatic reflective text classification in Hungarian achieves performance comparable to previously reported results in other languages . Shallow models obtained higher aggregate means, while statistical tests indicated no significant differences for Accuracy and Weighted F1. The difference remains modest, suggesting that both paradigms are capable of capturing key characteristics of reflective writing. While shallow models can distinguish between classes better, transformer models show improved sensitivity to minority classes, which is relevant for imbalanced educational datasets. This study addresses document-level reflective text classification for Hungarian essays, highlighting the feasibility of this task in a morphologically rich language.",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s014_p002",
+          "text": "The findings further emphasize the importance of handling class imbalance. Techniques such as oversampling, class weighting, different loss functions, and data augmentation were particularly beneficial, especially for transformer-based models. This suggests that transformer models are more sensitive to class distribution and can benefit substantially from strategies that improve the representation of minority classes.",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s014_p003",
+          "text": "These results may inform educational tools for preliminary feedback and workload support, with final assessment retained by educators. In particular, the ability of models to accurately assess reflective quality in writing can be leveraged in educational technologies, where automated feedback on student essays can enhance learning outcomes and the development of critical thinking skills.",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s014_p004",
+          "text": "Furthermore, these systems can reduce teachers' workload by providing initial assessments of student essays, reducing subjectivity and allowing educators to focus on more personalized feedback and instruction. The findings also suggest that integrating both shallow and deep learning approaches could yield hybrid models that use the strengths of each method, potentially leading to even more effective reflective analysis systems.",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s014_p005",
+          "text": "While our approach reports results for Hungarian reflective text classification, several limitations must be acknowledged. First, the effectiveness of these methods depend on class distribution and annotation quality. Even with oversampling, most models struggled to accurately classify minority classes, often achieving high overall accuracy by favoring majority class predictions. This highlights the need for further research into techniques that can better handle imbalanced datasets, particularly in the context of reflective analysis in Hungarian language essays. Future work could explore more advanced data augmentation strategies or the collection of more balanced datasets.",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s014_p006",
+          "text": "Another limitation arises from the restricted context window of transformer models, which makes the prediction more difficult due to the information loss when truncating longer essays into smaller chunks and aggregate them. Addressing this issue with Hungarian specific or multi lingual large language models that can handle longer contexts could further improve performance.",
+          "numbers": []
+        }
+      ],
+      "tables": [],
+      "equations": []
+    },
+    {
+      "section_id": "s015",
+      "level": "section",
+      "title": "Conclusion",
+      "is_results_like": false,
+      "paragraphs": [
+        {
+          "paragraph_id": "s015_p001",
+          "text": "This study examined automatic reflection-level classification in Hungarian student essays using a large expert-annotated corpus (N=1,954). This study provides a comprehensive document-level comparison in this Hungarian setting between shallow machine-learning methods and Hungarian pre-trained transformer models under severe class imbalance.",
+          "numbers": [
+            {
+              "value": "1,954",
+              "context": "This study examined automatic reflection-level classification in Hungarian student essays using a large expert-annotated corpus (N=1,954)."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s015_p002",
+          "text": "The main finding is a consistent trade-off between aggregate performance and minority-class behavior. Shallow models with strong feature representations achieved the best overall scores (approximately 71\\% aggregate score over Accuracy, F1, and ROC-AUC), while transformer models achieved slightly lower overall performance (approximately 68\\%) but provided more balanced behavior on underrepresented reflection levels. This indicates that, in low-resource and imbalanced educational NLP settings, classical approaches remain highly competitive, while transformer models are valuable when minority-class sensitivity is a priority.",
+          "numbers": [
+            {
+              "value": "71",
+              "context": "Shallow models with strong feature representations achieved the best overall scores (approximately 71\\% aggregate score over Accuracy, F1, and ROC-AUC), while transformer models achieved slightly lower overall performance (approximately 68\\%) but provided more balanced behavior on underrepresented reflection levels."
+            },
+            {
+              "value": "68",
+              "context": "Shallow models with strong feature representations achieved the best overall scores (approximately 71\\% aggregate score over Accuracy, F1, and ROC-AUC), while transformer models achieved slightly lower overall performance (approximately 68\\%) but provided more balanced behavior on underrepresented reflection levels."
+            }
+          ]
+        },
+        {
+          "paragraph_id": "s015_p003",
+          "text": "Our experiments also show that imbalance-handling methods are not universally beneficial: their effect depends on model family and objective metric. In several configurations, these techniques improved minority-class detection but reduced majority-class stability, reinforcing the need for metric-aware model selection.",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s015_p004",
+          "text": "The study has two main limitations. First, the strong class skew remains a bottleneck for robust minority-class learning. Second, transformer context limits required chunking long essays, which can weaken document-level coherence signals. Future work should therefore focus on better minority-class data support (targeted collection and augmentation), longer-context Hungarian or multilingual architectures, and hybrid systems that combine the strong global discrimination of shallow models with the minority-class robustness of transformer-based methods.",
+          "numbers": []
+        }
+      ],
+      "tables": [],
+      "equations": []
+    },
+    {
+      "section_id": "s016",
+      "level": "section",
+      "title": "List of abbreviations",
+      "is_results_like": false,
+      "paragraphs": [
+        {
+          "paragraph_id": "s016_p001",
+          "text": "OECD - Organisation for Economic Co-operation and Development",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s016_p002",
+          "text": "STEM - Science, Technology, Engineering and Mathematics",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s016_p003",
+          "text": "TF-IDF - Term Frequency-Inverse Document Frequency",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s016_p004",
+          "text": "ROC-AUC - Receiver Operating Characteristic - Area Under Curve",
+          "numbers": []
+        },
+        {
+          "paragraph_id": "s016_p005",
+          "text": "SMOTE - Synthetic Minority Over-sampling Technique",
+          "numbers": []
+        }
+      ],
+      "tables": [],
+      "equations": []
+    },
+    {
+      "section_id": "s017",
+      "level": "section",
+      "title": "Declarations",
+      "is_results_like": false,
+      "paragraphs": [],
+      "tables": [],
+      "equations": []
+    },
+    {
+      "section_id": "s018",
+      "level": "subsection",
+      "title": "Data availability",
+      "is_results_like": false,
+      "paragraphs": [
+        {
+          "paragraph_id": "s018_p001",
+          "text": "Due to ethical considerations, the datasets used and/or analyzed during the current study cannot be made publicly available and are not accessible.",
+          "numbers": []
+        }
+      ],
+      "tables": [],
+      "equations": []
+    },
+    {
+      "section_id": "s019",
+      "level": "subsection",
+      "title": "Competing interests",
+      "is_results_like": false,
+      "paragraphs": [
+        {
+          "paragraph_id": "s019_p001",
+          "text": "The authors declare that there are no conflicts of interest related to the research, authorship, and publication of this article.",
+          "numbers": []
+        }
+      ],
+      "tables": [],
+      "equations": []
+    },
+    {
+      "section_id": "s020",
+      "level": "subsection",
+      "title": "Funding",
+      "is_results_like": false,
+      "paragraphs": [
+        {
+          "paragraph_id": "s020_p001",
+          "text": "Multiple sources supported this research. This research was supported by the Anonymous and the Anonymous grants.",
+          "numbers": []
+        }
+      ],
+      "tables": [],
+      "equations": []
+    }
+  ],
+  "result_section_ids": [
+    "s010",
+    "s011",
+    "s012",
+    "s013"
+  ],
+  "stats": {
+    "tex_file_count": 1,
+    "section_count": 20,
+    "result_section_count": 4,
+    "paragraph_count": 81,
+    "table_count": 5,
+    "equation_count": 0,
+    "number_mention_count": 106
+  }
+}
